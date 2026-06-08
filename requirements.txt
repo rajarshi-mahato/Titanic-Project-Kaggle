@@ -1,0 +1,13 @@
+numpy>=2.0
+pandas>=2.2
+matplotlib
+seaborn
+scikit-learn
+xgboost
+catboost
+flask
+dill
+pymongo
+ipykernel
+ipynb
+-e .

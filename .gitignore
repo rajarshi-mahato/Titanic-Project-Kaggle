@@ -151,6 +151,9 @@ activemq-data/
 .env
 .envrc
 .venv
+Draft.txt
+template.py
+artifacts/
 env/
 venv/
 ENV/
