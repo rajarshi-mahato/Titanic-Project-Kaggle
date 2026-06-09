@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>
+Spaceship Titanic Predictor
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+
+background:
+radial-gradient(circle at top left,
+rgba(0,255,255,.15),
+transparent 30%),
+
+radial-gradient(circle at bottom right,
+rgba(138,43,226,.18),
+transparent 35%),
+
+linear-gradient(
+135deg,
+#050816,
+#0b1026 45%,
+#101a3a);
+
+padding:30px;
+color:white;
+min-height:100vh;
+}
+
+.login{
+
+max-width:900px;
+margin:auto;
+padding:30px;
+border-radius:20px;
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.4);
+
+}
+
+.title{
+
+font-size:2rem;
+font-weight:800;
+text-align:center;
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+opacity:.7;
+margin-bottom:30px;
+
+}
+
+form{
+
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+
+}
+
+.field{
+
+display:flex;
+flex-direction:column;
+gap:8px;
+
+}
+
+.form-label{
+
+font-weight:600;
+
+}
+
+.form-control{
+
+padding:14px;
+border-radius:12px;
+border:none;
+
+background:
+rgba(10,15,30,.8);
+
+color:white;
+outline:none;
+
+}
+
+.form-control:focus{
+
+box-shadow:
+0 0 0 4px
+rgba(0,212,255,.2);
+
+}
+
+select option{
+
+background:#111;
+
+}
+
+.full-width{
+
+grid-column:1/-1;
+
+}
+
+.btn{
+
+padding:16px;
+border:none;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+
+background:
+linear-gradient(
+90deg,
+#00d4ff,
+#7c3aed
+);
+
+color:white;
+
+}
+
+.result{
+
+margin-top:25px;
+padding:20px;
+border-radius:16px;
+
+background:
+rgba(255,255,255,.1);
+
+text-align:center;
+font-size:1.2rem;
+
+}
+
+@media(max-width:768px){
+
+form{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login">
+
+<div class="title">
+🚀 Spaceship Titanic Predictor
+</div>
+
+<div class="subtitle">
+Predict Whether a Passenger Was Transported
+</div>
+
+<form action="{{ url_for('predict_datapoint') }}" method="post">
+
+<!-- Numerical Features -->
+
+<div class="field">
+<label class="form-label">Age [1-100]</label>
+<input class="form-control" type="number" step="0.01" name="Age" required>
+</div>
+
+<div class="field">
+<label class="form-label">Room Service  max $20k</label>
+<input class="form-control" type="number" step="0.01" name="RoomService" required>
+</div>
+
+<div class="field">
+<label class="form-label">Food Court max $20k</label>
+<input class="form-control" type="number" step="0.01" name="FoodCourt" required>
+</div>
+
+<div class="field">
+<label class="form-label">Shopping Mall max $20k</label>
+<input class="form-control" type="number" step="0.01" name="ShoppingMall" required>
+</div>
+
+<div class="field">
+<label class="form-label">Sp max $20k</label>
+<input class="form-control" type="number" step="0.01" name="Spa" required>
+</div>
+
+<div class="field">
+<label class="form-label">VR Deck max $20k</label>
+<input class="form-control" type="number" step="0.01" name="VRDeck" required>
+</div>
+
+<!-- Categorical Features -->
+
+<div class="field">
+<label class="form-label">Home Planet</label>
+<select class="form-control" name="HomePlanet" required>
+<option value="Earth">Earth</option>
+<option value="Europa">Europa</option>
+<option value="Mars">Mars</option>
+</select>
+</div>
+
+<div class="field">
+<label class="form-label">Cryo Sleep</label>
+<select class="form-control" name="CryoSleep" required>
+<option value="True">True</option>
+<option value="False">False</option>
+</select>
+</div>
+
+<div class="field">
+<label class="form-label">Destination</label>
+<select class="form-control" name="Destination" required>
+<option value="TRAPPIST-1e">TRAPPIST-1e</option>
+<option value="55 Cancri e">55 Cancri e</option>
+<option value="PSO J318.5-22">PSO J318.5-22</option>
+</select>
+</div>
+
+<div class="field">
+<label class="form-label">VIP</label>
+<select class="form-control" name="VIP" required>
+<option value="True">True</option>
+<option value="False">False</option>
+</select>
+</div>
+
+<div class="full-width">
+<input
+class="btn"
+type="submit"
+value="Predict Transported Status">
+</div>
+
+</form>
+
+{% if results is not none %}
+
+<div class="result">
+
+Prediction:
+
+<b>
+
+{% if results == 1 %}
+Passenger Transported 🚀
+{% else %}
+Passenger Not Transported ❌
+{% endif %}
+
+</b>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
